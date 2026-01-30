@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanAir Insight - Air Quality & Respiratory Health Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🌍</div>
+                    <h1>UrbanAir <span class="highlight">Insight</span></h1>
+                    <p class="subtitle">Air Quality × Respiratory Health Intelligence Dashboard</p>
+                </div>
+                <div class="header-status">
+                    <div class="update-time">
+                        <span class="label">Updated:</span>
+                        <span class="time" id="updateTime">Friday, January 30, 2026 3:28:15 PM IST</span>
+                    </div>
+                    <button class="refresh-btn" id="refreshBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                        </svg>
+                        REFRESH
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card" data-animate="fade-up">
+                <div class="stat-icon trend-up">📈</div>
+                <div class="stat-content">
+                    <h3 class="stat-label">AVERAGE AQI</h3>
+                    <div class="stat-value">165</div>
+                    <div class="stat-change negative">+10% <span>vs last month</span></div>
+                </div>
+            </div>
+
+            <div class="stat-card" data-animate="fade-up" style="animation-delay: 0.1s">
+                <div class="stat-icon alert">⚠️</div>
+                <div class="stat-content">
+                    <h3 class="stat-label">HIGH RISK CITIES</h3>
+                    <div class="stat-value">22</div>
+                    <div class="stat-change negative">+2 <span>vs last month</span></div>
+                </div>
+            </div>
+
+            <div class="stat-card" data-animate="fade-up" style="animation-delay: 0.2s">
+                <div class="stat-icon exposure">👥</div>
+                <div class="stat-content">
+                    <h3 class="stat-label">POPULATION EXPOSED</h3>
+                    <div class="stat-value">350M</div>
+                    <div class="stat-change neutral">Critical areas</div>
+                </div>
+            </div>
+
+            <div class="stat-card" data-animate="fade-up" style="animation-delay: 0.3s">
+                <div class="stat-icon monitor">🏙️</div>
+                <div class="stat-content">
+                    <h3 class="stat-label">CITIES MONITORED</h3>
+                    <div class="stat-value">15</div>
+                    <div class="stat-change positive">Real-time tracking</div>
+                </div>
+            </div>
+
+            <div class="stat-card good-quality" data-animate="fade-up" style="animation-delay: 0.4s">
+                <div class="stat-icon quality">✓</div>
+                <div class="stat-content">
+                    <h3 class="stat-label">GOOD AIR QUALITY</h3>
+                    <div class="stat-value">0</div>
+                    <div class="stat-change neutral">cities today</div>
+                </div>
+            </div>
+
+            <div class="stat-card correlation" data-animate="fade-up" style="animation-delay: 0.5s">
+                <div class="stat-icon">📊</div>
+                <div class="stat-content">
+                    <h3 class="stat-label">CORRELATION INDEX</h3>
+                    <div class="stat-value">0.87</div>
+                    <div class="stat-change positive">AQI × Respiratory cases</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="content-wrapper">
+            <!-- Left Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-section" data-animate="slide-right">
+                    <h3 class="section-title">SELECT LOCATION</h3>
+                    <div class="search-box">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <input type="text" id="citySearch" placeholder="Search cities...">
+                    </div>
+                    
+                    <div class="city-list" id="cityList">
+                        <div class="city-item active" data-city="delhi" data-aqi="385">
+                            <div class="city-info">
+                                <span class="city-name">Delhi</span>
+                                <span class="city-tag tag-hazardous">HAZARDOUS</span>
+                            </div>
+                            <span class="city-aqi hazardous">385</span>
+                        </div>
+                        <div class="city-item" data-city="mumbai" data-aqi="288">
+                            <div class="city-info">
+                                <span class="city-name">Mumbai</span>
+                                <span class="city-tag tag-very-unhealthy">VERY UNHEALTHY</span>
+                            </div>
+                            <span class="city-aqi very-unhealthy">288</span>
+                        </div>
+                        <div class="city-item" data-city="bangalore" data-aqi="205">
+                            <div class="city-info">
+                                <span class="city-name">Bengaluru</span>
+                                <span class="city-tag tag-unhealthy">UNHEALTHY</span>
+                            </div>
+                            <span class="city-aqi unhealthy">205</span>
+                        </div>
+                        <div class="city-item" data-city="kolkata" data-aqi="210">
+                            <div class="city-info">
+                                <span class="city-name">Kolkata</span>
+                                <span class="city-tag tag-unhealthy">UNHEALTHY</span>
+                            </div>
+                            <span class="city-aqi unhealthy">210</span>
+                        </div>
+                        <div class="city-item" data-city="chennai" data-aqi="143">
+                            <div class="city-info">
+                                <span class="city-name">Chennai</span>
+                                <span class="city-tag tag-usg">USG</span>
+                            </div>
+                            <span class="city-aqi usg">143</span>
+                        </div>
+                        <div class="city-item" data-city="hyderabad" data-aqi="178">
+                            <div class="city-info">
+                                <span class="city-name">Hyderabad</span>
+                                <span class="city-tag tag-unhealthy">UNHEALTHY</span>
+                            </div>
+                            <span class="city-aqi unhealthy">178</span>
+                        </div>
+                        <div class="city-item" data-city="pune" data-aqi="165">
+                            <div class="city-info">
+                                <span class="city-name">Pune</span>
+                                <span class="city-tag tag-unhealthy">UNHEALTHY</span>
+                            </div>
+                            <span class="city-aqi unhealthy">165</span>
+                        </div>
+                        <div class="city-item" data-city="ahmedabad" data-aqi="192">
+                            <div class="city-info">
+                                <span class="city-name">Ahmedabad</span>
+                                <span class="city-tag tag-unhealthy">UNHEALTHY</span>
+                            </div>
+                            <span class="city-aqi unhealthy">192</span>
+                        </div>
+                        <div class="city-item" data-city="jaipur" data-aqi="245">
+                            <div class="city-info">
+                                <span class="city-name">Jaipur</span>
+                                <span class="city-tag tag-very-unhealthy">VERY UNHEALTHY</span>
+                            </div>
+                            <span class="city-aqi very-unhealthy">245</span>
+                        </div>
+                        <div class="city-item" data-city="lucknow" data-aqi="268">
+                            <div class="city-info">
+                                <span class="city-name">Lucknow</span>
+                                <span class="city-tag tag-very-unhealthy">VERY UNHEALTHY</span>
+                            </div>
+                            <span class="city-aqi very-unhealthy">268</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center Map Area -->
+            <main class="main-content">
+                <div class="map-container" data-animate="fade-in">
+                    <h3 class="section-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                            <circle cx="12" cy="9" r="2.5"/>
+                        </svg>
+                        AIR QUALITY HEATMAP
+                    </h3>
+                    
+                    <div class="map-wrapper">
+                        <img src="india-map-base.svg" alt="India Map" class="india-map" id="indiaMap">
+                        <div class="map-overlay">
+                            <!-- Delhi -->
+                            <div class="city-marker hazardous" style="top: 22%; left: 48%;" data-city="delhi" data-aqi="385">
+                                <div class="marker-pulse"></div>
+                                <div class="marker-dot"></div>
+                                <div class="marker-label">Delhi<span>385</span></div>
+                            </div>
+                            <!-- Mumbai -->
+                            <div class="city-marker very-unhealthy" style="top: 48%; left: 35%;" data-city="mumbai" data-aqi="288">
+                                <div class="marker-pulse"></div>
+                                <div class="marker-dot"></div>
+                                <div class="marker-label">Mumbai<span>288</span></div>
+                            </div>
+                            <!-- Bangalore -->
+                            <div class="city-marker unhealthy" style="top: 65%; left: 45%;" data-city="bangalore" data-aqi="205">
+                                <div class="marker-pulse"></div>
+                                <div class="marker-dot"></div>
+                                <div class="marker-label">Bengaluru<span>205</span></div>
+                            </div>
+                            <!-- Kolkata -->
+                            <div class="city-marker unhealthy" style="top: 38%; left: 72%;" data-city="kolkata" data-aqi="210">
+                                <div class="marker-pulse"></div>
+                                <div class="marker-dot"></div>
+                                <div class="marker-label">Kolkata<span>210</span></div>
+                            </div>
+                            <!-- Chennai -->
+                            <div class="city-marker usg" style="top: 68%; left: 54%;" data-city="chennai" data-aqi="143">
+                                <div class="marker-pulse"></div>
+                                <div class="marker-dot"></div>
+                                <div class="marker-label">Chennai<span>143</span></div>
+                            </div>
+                            <!-- Hyderabad -->
+                            <div class="city-marker unhealthy" style="top: 58%; left: 50%;" data-city="hyderabad" data-aqi="178">
+                                <div class="marker-pulse"></div>
+                                <div class="marker-dot"></div>
+                                <div class="marker-label">Hyderabad<span>178</span></div>
+                            </div>
+                            <!-- Pune -->
+                            <div class="city-marker unhealthy" style="top: 51%; left: 40%;" data-city="pune" data-aqi="165">
+                                <div class="marker-pulse"></div>
+                                <div class="marker-dot"></div>
+                                <div class="marker-label">Pune<span>165</span></div>
+                            </div>
+                            <!-- Ahmedabad -->
+                            <div class="city-marker unhealthy" style="top: 36%; left: 36%;" data-city="ahmedabad" data-aqi="192">
+                                <div class="marker-pulse"></div>
+                                <div class="marker-dot"></div>
+                                <div class="marker-label">Ahmedabad<span>192</span></div>
+                            </div>
+                            <!-- Jaipur -->
+                            <div class="city-marker very-unhealthy" style="top: 28%; left: 42%;" data-city="jaipur" data-aqi="245">
+                                <div class="marker-pulse"></div>
+                                <div class="marker-dot"></div>
+                                <div class="marker-label">Jaipur<span>245</span></div>
+                            </div>
+                            <!-- Lucknow -->
+                            <div class="city-marker very-unhealthy" style="top: 30%; left: 56%;" data-city="lucknow" data-aqi="268">
+                                <div class="marker-pulse"></div>
+                                <div class="marker-dot"></div>
+                                <div class="marker-label">Lucknow<span>268</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="map-legend">
+                        <div class="legend-title">AQI SCALE</div>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <span class="legend-dot good"></span>
+                                <span>0-50 Good</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot moderate"></span>
+                                <span>51-100 Moderate</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot usg"></span>
+                                <span>101-150 USG</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot unhealthy"></span>
+                                <span>151-200 Unhealthy</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot very-unhealthy"></span>
+                                <span>201-300 Very Unhealthy</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot hazardous"></span>
+                                <span>301-399 Unhealthy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Right Sidebar -->
+            <aside class="details-panel">
+                <div class="details-header" data-animate="slide-left">
+                    <h2 id="cityName">Delhi, India</h2>
+                    <div class="city-aqi-large hazardous" id="cityAqiLarge">385</div>
+                    <div class="city-status">
+                        <span class="status-label">AQI</span>
+                    </div>
+                </div>
+
+                <div class="weather-info" data-animate="slide-left" style="animation-delay: 0.1s">
+                    <div class="weather-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v10m0 0L8 8m4 4 4-4"/>
+                        </svg>
+                        <div>
+                            <div class="weather-label">Temp</div>
+                            <div class="weather-value" id="temp">30°C</div>
+                        </div>
+                    </div>
+                    <div class="weather-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                        </svg>
+                        <div>
+                            <div class="weather-label">Humidity</div>
+                            <div class="weather-value" id="humidity">45%</div>
+                        </div>
+                    </div>
+                    <div class="weather-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/>
+                        </svg>
+                        <div>
+                            <div class="weather-label">Wind</div>
+                            <div class="weather-value" id="wind">12 km/h</div>
+                        </div>
+                    </div>
+                    <div class="weather-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <div>
+                            <div class="weather-label">PM2.5</div>
+                            <div class="weather-value" id="pm25">112</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pollutants-section" data-animate="slide-left" style="animation-delay: 0.2s">
+                    <h3 class="section-title">POLLUTANT LEVELS</h3>
+                    <div class="pollutant-bars">
+                        <div class="pollutant-bar">
+                            <div class="pollutant-header">
+                                <span class="pollutant-name">PM2.5</span>
+                                <span class="pollutant-value" id="pm25Val">112 μg/m³</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill hazardous" style="width: 75%;" id="pm25Bar"></div>
+                            </div>
+                        </div>
+                        <div class="pollutant-bar">
+                            <div class="pollutant-header">
+                                <span class="pollutant-name">PM10</span>
+                                <span class="pollutant-value" id="pm10Val">186 μg/m³</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill very-unhealthy" style="width: 70%;" id="pm10Bar"></div>
+                            </div>
+                        </div>
+                        <div class="pollutant-bar">
+                            <div class="pollutant-header">
+                                <span class="pollutant-name">O₃</span>
+                                <span class="pollutant-value" id="o3Val">45 ppb</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill unhealthy" style="width: 65%;" id="o3Bar"></div>
+                            </div>
+                        </div>
+                        <div class="pollutant-bar">
+                            <div class="pollutant-header">
+                                <span class="pollutant-name">NO₂</span>
+                                <span class="pollutant-value" id="no2Val">38 ppb</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill usg" style="width: 55%;" id="no2Bar"></div>
+                            </div>
+                        </div>
+                        <div class="pollutant-bar">
+                            <div class="pollutant-header">
+                                <span class="pollutant-name">SO₂</span>
+                                <span class="pollutant-value" id="so2Val">10 ppb</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill moderate" style="width: 25%;" id="so2Bar"></div>
+                            </div>
+                        </div>
+                        <div class="pollutant-bar">
+                            <div class="pollutant-header">
+                                <span class="pollutant-name">CO</span>
+                                <span class="pollutant-value" id="coVal">5 ppm</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill usg" style="width: 45%;" id="coBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="health-alert" data-animate="slide-left" style="animation-delay: 0.3s">
+                    <div class="alert-icon">⚠️</div>
+                    <div class="alert-content">
+                        <h4>Health alert: Exercise caution near quarantine-safe (as far) her home</h4>
+                        <p id="healthAdvice">Health warnings of emergency conditions. The entire population is more likely to be affected by serious health effects.</p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-section">
+            <div class="chart-card" data-animate="fade-up">
+                <h3 class="chart-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="20" x2="12" y2="10"/>
+                        <line x1="18" y1="20" x2="18" y2="4"/>
+                        <line x1="6" y1="20" x2="6" y2="16"/>
+                    </svg>
+                    AQI TREND (LAST 30 DAYS)
+                </h3>
+                <canvas id="aqiTrendChart"></canvas>
+            </div>
+
+            <div class="chart-card" data-animate="fade-up" style="animation-delay: 0.1s">
+                <h3 class="chart-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                        <polyline points="7.5 4.21 12 6.81 16.5 4.21"/>
+                        <polyline points="7.5 19.79 7.5 14.6 3 12"/>
+                        <polyline points="21 12 16.5 14.6 16.5 19.79"/>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                        <line x1="12" y1="22.08" x2="12" y2="12"/>
+                    </svg>
+                    POLLUTANT DISTRIBUTION
+                </h3>
+                <canvas id="pollutantChart"></canvas>
+            </div>
+
+            <div class="chart-card" data-animate="fade-up" style="animation-delay: 0.2s">
+                <h3 class="chart-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                    RESPIRATORY CASES CORRELATION
+                </h3>
+                <canvas id="correlationChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Footer API Section -->
+        <footer class="footer">
+            <div class="api-section">
+                <h3 class="api-title">🔌 Developer API Access</h3>
+                <p class="api-description">Integrate real-time air quality and health data into your urban planning applications</p>
+                
+                <div class="api-endpoints">
+                    <div class="endpoint-card">
+                        <div class="endpoint-method">GET</div>
+                        <code class="endpoint-url">/api/v1/aqi/city/{cityName}</code>
+                        <p class="endpoint-desc">Get current AQI data for a specific city</p>
+                    </div>
+                    <div class="endpoint-card">
+                        <div class="endpoint-method">GET</div>
+                        <code class="endpoint-url">/api/v1/health/respiratory/{cityName}</code>
+                        <p class="endpoint-desc">Get respiratory health statistics for a city</p>
+                    </div>
+                    <div class="endpoint-card">
+                        <div class="endpoint-method">GET</div>
+                        <code class="endpoint-url">/api/v1/correlation/aqi-health</code>
+                        <p class="endpoint-desc">Get correlation data between AQI and health metrics</p>
+                    </div>
+                    <div class="endpoint-card">
+                        <div class="endpoint-method">POST</div>
+                        <code class="endpoint-url">/api/v1/alerts/subscribe</code>
+                        <p class="endpoint-desc">Subscribe to air quality alerts for specific regions</p>
+                    </div>
+                </div>
+
+                <div class="api-footer">
+                    <button class="api-docs-btn">📚 View Full API Documentation</button>
+                    <button class="api-key-btn">🔑 Get API Key</button>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

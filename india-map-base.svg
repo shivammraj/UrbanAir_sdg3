@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1f3a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a0e27;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- India Map Outline -->
+  <g id="india-map" fill="url(#mapGradient)" stroke="#2a3550" stroke-width="2" opacity="0.9">
+    <!-- Kashmir Region -->
+    <path d="M 280 50 L 320 40 L 360 50 L 380 70 L 390 90 L 385 110 L 370 130 L 350 140 L 330 145 L 310 140 L 290 130 L 275 110 L 270 90 L 275 70 Z"/>
+    
+    <!-- Punjab & Haryana -->
+    <path d="M 275 110 L 290 130 L 310 140 L 330 145 L 340 160 L 345 180 L 340 200 L 320 210 L 295 205 L 275 195 L 265 175 L 268 155 L 272 135 Z"/>
+    
+    <!-- Rajasthan -->
+    <path d="M 265 175 L 275 195 L 295 205 L 320 210 L 340 220 L 350 240 L 355 270 L 350 300 L 340 330 L 320 360 L 295 380 L 270 390 L 245 385 L 225 370 L 215 345 L 210 315 L 215 285 L 225 255 L 240 225 L 255 200 Z"/>
+    
+    <!-- Gujarat -->
+    <path d="M 215 285 L 210 315 L 215 345 L 225 370 L 240 390 L 255 410 L 265 435 L 268 460 L 260 485 L 245 500 L 225 505 L 205 495 L 190 475 L 185 450 L 190 425 L 200 400 L 205 375 L 208 350 L 210 325 Z"/>
+    
+    <!-- Maharashtra -->
+    <path d="M 245 500 L 260 485 L 268 460 L 280 445 L 300 440 L 325 445 L 350 455 L 370 470 L 385 490 L 395 515 L 398 545 L 392 570 L 378 590 L 355 600 L 330 598 L 305 590 L 285 575 L 270 555 L 258 530 Z"/>
+    
+    <!-- Karnataka & Goa -->
+    <path d="M 285 575 L 305 590 L 330 598 L 355 600 L 370 610 L 380 630 L 385 655 L 382 680 L 370 700 L 350 710 L 325 710 L 300 700 L 280 685 L 268 665 L 262 640 L 265 615 L 272 595 Z"/>
+    
+    <!-- Kerala -->
+    <path d="M 268 665 L 280 685 L 300 700 L 315 720 L 322 745 L 320 770 L 310 790 L 295 800 L 275 798 L 258 785 L 248 765 L 245 740 L 248 715 L 255 690 Z"/>
+    
+    <!-- Tamil Nadu -->
+    <path d="M 325 710 L 350 710 L 370 720 L 385 740 L 395 765 L 398 790 L 392 815 L 378 835 L 355 845 L 330 843 L 310 830 L 295 810 L 290 785 L 295 760 L 305 735 Z"/>
+    
+    <!-- Andhra Pradesh & Telangana -->
+    <path d="M 355 600 L 378 590 L 398 595 L 420 605 L 440 620 L 455 640 L 465 665 L 468 690 L 462 715 L 448 735 L 425 748 L 398 750 L 375 742 L 358 725 L 350 700 L 348 675 L 352 650 L 358 625 Z"/>
+    
+    <!-- Odisha -->
+    <path d="M 465 665 L 455 640 L 458 615 L 468 590 L 485 575 L 505 570 L 528 575 L 545 590 L 555 610 L 558 635 L 552 660 L 540 680 L 520 692 L 498 695 L 478 688 Z"/>
+    
+    <!-- West Bengal -->
+    <path d="M 555 610 L 545 590 L 548 565 L 558 540 L 575 525 L 595 520 L 615 525 L 630 540 L 638 560 L 640 585 L 635 610 L 622 630 L 605 642 L 585 645 L 568 638 Z"/>
+    
+    <!-- Chhattisgarh -->
+    <path d="M 448 735 L 462 715 L 478 688 L 498 675 L 520 670 L 540 675 L 555 690 L 562 710 L 560 735 L 548 755 L 528 765 L 505 765 L 485 758 L 468 745 Z"/>
+    
+    <!-- Madhya Pradesh -->
+    <path d="M 295 380 L 320 360 L 345 355 L 375 360 L 405 370 L 432 385 L 455 405 L 470 430 L 475 455 L 472 480 L 460 500 L 440 512 L 415 515 L 390 510 L 365 498 L 340 482 L 318 462 L 302 440 L 290 415 Z"/>
+    
+    <!-- Uttar Pradesh -->
+    <path d="M 340 200 L 320 210 L 340 220 L 365 225 L 395 230 L 425 240 L 455 255 L 482 275 L 505 295 L 520 318 L 525 345 L 518 370 L 502 390 L 478 402 L 450 405 L 422 398 L 395 385 L 370 368 L 348 348 L 335 325 L 330 300 L 335 275 L 340 250 L 342 225 Z"/>
+    
+    <!-- Bihar & Jharkhand -->
+    <path d="M 520 318 L 505 295 L 515 270 L 532 255 L 555 250 L 578 255 L 598 268 L 612 288 L 618 312 L 615 338 L 605 360 L 588 375 L 565 382 L 542 380 L 525 370 L 515 350 L 512 330 Z"/>
+    
+    <!-- Northeast States -->
+    <path d="M 640 585 L 638 560 L 645 535 L 658 515 L 675 505 L 695 505 L 712 515 L 722 535 L 725 560 L 720 585 L 708 605 L 690 615 L 668 615 L 650 605 Z"/>
+    
+    <!-- Andaman & Nicobar (small islands) -->
+    <circle cx="630" cy="700" r="8" fill="#2a3550" opacity="0.7"/>
+    <circle cx="640" cy="750" r="6" fill="#2a3550" opacity="0.7"/>
+    <circle cx="625" cy="800" r="5" fill="#2a3550" opacity="0.7"/>
+    
+    <!-- Lakshadweep (small islands) -->
+    <circle cx="180" cy="650" r="4" fill="#2a3550" opacity="0.7"/>
+    <circle cx="170" cy="680" r="3" fill="#2a3550" opacity="0.7"/>
+  </g>
+  
+  <!-- State Borders (lighter lines) -->
+  <g stroke="#3a4560" stroke-width="1" fill="none" opacity="0.5">
+    <line x1="340" y1="200" x2="345" y2="180"/>
+    <line x1="265" y1="175" x2="340" y2="220"/>
+    <line x1="295" y1="380" x2="270" y2="390"/>
+    <line x1="385" y1="490" x2="398" y2="545"/>
+    <line x1="355" y1="600" x2="325" y2="710"/>
+    <line x1="465" y1="665" x2="468" y2="590"/>
+    <line x1="555" y1="610" x2="575" y2="525"/>
+    <line x1="520" y1="318" x2="615" y2="338"/>
+  </g>
+  
+  <!-- Grid overlay for depth -->
+  <g stroke="#ffffff" stroke-width="0.5" opacity="0.03">
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="400" x2="800" y2="400"/>
+    <line x1="0" y1="600" x2="800" y2="600"/>
+    <line x1="0" y1="800" x2="800" y2="800"/>
+    <line x1="200" y1="0" x2="200" y2="1000"/>
+    <line x1="400" y1="0" x2="400" y2="1000"/>
+    <line x1="600" y1="0" x2="600" y2="1000"/>
+  </g>
+</svg>
